@@ -66,7 +66,7 @@ function getRandomQuote(){
 ***/
 function printQuote(){
   let randomQuote = getRandomQuote();
-
+  
 }
 
 
