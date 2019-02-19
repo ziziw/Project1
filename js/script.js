@@ -65,8 +65,8 @@ function getRandomQuote(){
    - set the `innerHTML` of the `quote-box` div to the HTML string.
 ***/
 function printQuote(){
-  let quote = getRandomQuote();
-  
+  let randomQuote = getRandomQuote();
+
 }
 
 
