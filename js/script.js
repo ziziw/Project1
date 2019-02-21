@@ -54,6 +54,13 @@ function getRandomQuote(){
 }
 
 
+function getRandomColor(){
+  let red = Math.floor(Math.random() * 256);
+  let green = Math.floor(Math.random() * 256);
+  let blue = Math.floor(Math.random() * 256);
+  return `rgb(${red}, ${green}, ${blue})`;
+}
+
 
 /***
   Create the `printQuote` function to:
@@ -65,11 +72,35 @@ function getRandomQuote(){
    - set the `innerHTML` of the `quote-box` div to the HTML string.
 ***/
 function printQuote(){
-  let randomQuote = getRandomQuote();
-  
+  let quoteObj = getRandomQuote();
+  let quoteStr = "";
+  if(quoteObj.citation && quoteObj.year){
+    quoteStr = `<p class="quote"> ${quoteObj.quote} </p>
+                <p class="source"> ${quoteObj.source}
+                  <span class="citation"> ${quoteObj.citation} </span>
+                  <span class="year"> ${quoteObj.year} </span>
+                </p>`
+  } else if(quoteObj.year){
+    quoteStr = `<p class="quote"> ${quoteObj.quote} </p>
+                <p class="source"> ${quoteObj.source}
+                  <span class="year"> ${quoteObj.year} </span>
+                </p>`
+  } else if(quoteObj.citation){
+    quoteStr = `<p class="quote"> ${quoteObj.quote} </p>
+                <p class="source"> ${quoteObj.source}
+                  <span class="citation"> ${quoteObj.citation} </span>
+                </p>`
+  } else {
+    quoteStr = `<p class="quote"> ${quoteObj.quote} </p>
+                <p class="source"> ${quoteObj.source} </p>`
+  }
+
+  document.getElementById('quote-box').innerHTML = quoteStr;
+  document.body.style.backgroundColor = getRandomColor();
+  document.getElementById('loadQuote').style.backgroundColor = document.body.style.backgroundColor;
 }
 
-
+setInterval(printQuote, 20000);
 
 /***
   When the "Show another quote" button is clicked, the event listener
