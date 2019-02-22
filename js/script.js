@@ -1,59 +1,49 @@
-/******************************************
-Treehouse Techdegree:
-FSJS project 1 - A Random Quote Generator
-******************************************/
-
-// Study guide for this project - https://drive.google.com/file/d/1s5grutGuQFwJcQP8bFwEI69Q8FCkGdDk/view?usp=sharing
-
-
-/***
-  Create the array of quote objects and name it `quotes`.
-  Add at least five quote objects to the `quotes` array.
-  Give each quote object a `quote` and `source` property.
-
-  Recommended:
-    - Add at least one `year` and/or `citation` property to at least one
-      quote object.
-***/
+/** This list of objects has 6 objects.
+  Each object has properties of quote, source, and category.
+  Only 1 object has citation and year.
+**/
 let quotes = [
   {
     quote: "You could be the world's best garbage man, the world's best model; it don't matter what you do if you're the best." ,
-    source: "Muhammad Ali"
+    source: "Muhammad Ali",
+    category: "Sport"
   },
   {
     quote: "We delight in the beauty of the butterfly, but rarely admit the changes it has gone through to achieve that beauty.",
-    source: "Maya Angelou"
+    source: "Maya Angelou",
+    category: "Literature"
   },
   {
-    quote: "A journey of a thousand miles begins with a single step",
-    source: "Lao Tzu"
+    quote: "A journey of a thousand miles begins with a single step.",
+    source: "Lao Tzu",
+    category: "Philosophy"
   },
   {
     quote: "It is better to fail in originality than to succeed in imitation.",
-    source: "Herman Melville"
+    source: "Herman Melville",
+    category: "Literature"
   },
   {
-    quote: "I've failed over and over and over again in my life and that is why I succeed",
+    quote: "I've failed over and over and over again in my life and that is why I succeed.",
     source: "Michael Jordan",
     citation: "Nike Culture: The Sign of the Swoosh",
-    year: 1998
+    year: 1998,
+    category: "Sport"
+  },
+  {
+    quote: "However difficult life may seem, there is always something you can do and succeed at.",
+    source: "Stephen Hawking",
+    category: "Science"
   }
 ];
 
-
-
-/***
-  Create the `getRandomQuote` function to:
-   - generate a random number
-   - use the random number to `return` a random quote object from the
-     `quotes` array.
-***/
+//Creates a random number between 0 and the number of objects in the list.
 function getRandomQuote(){
-  let randomNumber = Math.floor(Math.random() * 5);
+  let randomNumber = Math.floor(Math.random() * quotes.length);
   return quotes[randomNumber];
 }
 
-
+//Get a random RGB color.
 function getRandomColor(){
   let red = Math.floor(Math.random() * 256);
   let green = Math.floor(Math.random() * 256);
@@ -61,16 +51,11 @@ function getRandomColor(){
   return `rgb(${red}, ${green}, ${blue})`;
 }
 
-
-/***
-  Create the `printQuote` function to:
-   - call the `getRandomQuote` function and assign it to a variable.
-   - use the properties of the quote object stored in the variable to
-     create your HTML string.
-   - use conditionals to make sure the optional properties exist before
-     they are added to the HTML string.
-   - set the `innerHTML` of the `quote-box` div to the HTML string.
-***/
+/** Prints the quote with quote and source.
+  Citation or/and year are added to the string depending on the object.
+  Category is added to the string depending on the object.
+  Randomly change the backgroundColor of both the body and the button everytime a new quote is printed.
+**/
 function printQuote(){
   let quoteObj = getRandomQuote();
   let quoteStr = "";
@@ -95,21 +80,19 @@ function printQuote(){
                 <p class="source"> ${quoteObj.source} </p>`
   }
 
+  if(quoteObj.category){
+    quoteStr += `<p class="category"> ${quoteObj.category} </p>`;
+  }
+
+  //Prints the quote.
   document.getElementById('quote-box').innerHTML = quoteStr;
+  //Set the body's backgroundColor to a new random color everytime a quote is printed.
   document.body.style.backgroundColor = getRandomColor();
+  //Set the button's backgroundColor to the same color as the body's backgroundColor.
   document.getElementById('loadQuote').style.backgroundColor = document.body.style.backgroundColor;
 }
 
+//Auto refresh the quote after 20 seconds.
 setInterval(printQuote, 20000);
 
-/***
-  When the "Show another quote" button is clicked, the event listener
-  below will be triggered, and it will call, or "invoke", the `printQuote`
-  function. So do not make any changes to the line of code below this
-  comment.
-***/
-
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
